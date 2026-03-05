@@ -11,6 +11,7 @@
     <center>
         <a href="/create"><button>Create</button></a>
         <br>
+        <br>
         <table border="1">
             <thead>
                 <tr>
@@ -21,12 +22,17 @@
                 </tr>
             </thead>
             <tbody>
+                {{-- Untuk Menampilkan data --}}
                 @foreach ($data as $key => $user)
                     <tr>
                         <td>{{ $key + 1 }}</td>
                         <td>{{ $user['id'] }}</td>
                         <td>{{ $user['name'] }}</td>
                         <td>{{ $user['email'] }}</td>
+                        <td>
+                            <a href="/edit/{{ $user['id'] }}"><button>Edit</button></a>
+                            <a href="/delete/{{ $user['id'] }}"><button>Delete</button></a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

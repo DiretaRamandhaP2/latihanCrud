@@ -7,16 +7,25 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index(){
+
+    // Untuk Menampilkan data
+    public function index()
+    {
         $data = User::all();
-        return view('welcome',compact('data'));
+        return view('welcome', compact('data'));
     }
 
-    public function create(){
+    // Untuk Menampilkan Form Create
+    public function create()
+    {
         return view('create');
     }
 
-    public function created(Request $request){
+    // Untuk Menyimpan data baru
+    public function created(Request $request)
+    {
+
+        // return json_encode($request->all());
         // cara Pertama
         User::create([
             'name' => $request->name,
@@ -34,5 +43,37 @@ class UserController extends Controller
         return redirect('/');
     }
 
+    // Untuk Menampilkan Form Edit
+    public function edit($id)
+    {
+        $data = User::find($id);
+        return view('edit', compact('data'));
+    }
 
+    // Untuk Menyimpan data yang sudah di edit
+    public function edited(Request $request)
+    {
+
+        $user = User::find($request->id);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        if ($request->password) {
+            $user->password = bcrypt($request->password);
+        } else {
+            $user->password = $request->password_lama;
+        }
+
+        $user->save();
+        return redirect('/');
+    }
+
+    // Untuk Menghapus data
+    public function delete($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        return redirect('/');
+    }
 }

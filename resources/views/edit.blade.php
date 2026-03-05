@@ -9,26 +9,27 @@
 
 <body>
     <center>
-        <h1>Create</h1>
-        {{-- Untuk membuat data baru --}}
-        <form action="/create" method="post">
+        <h1>edit</h1>
+        {{-- Form untuk mengedit data --}}
+        <form action="/edit/{{ $data['id'] }}" method="post">
             @csrf
             <table>
                 <tr>
                     <td>Name :</td>
-                    <td><input type="text" name="name" id=""></td>
+                    <td><input type="text" name="name" value="{{ $data->name ?? '' }}" id=""></td>
                 </tr>
                 <tr>
                     <td>Email :</td>
-                    <td><input type="email" name="email" id=""></td>
+                    <td><input type="email" name="email" value="{{ $data->email ?? '' }}" id=""></td>
                 </tr>
                 <tr>
                     <td>Password :</td>
+                    <input type="hidden" name="password_lama" value="{{ $data->password ?? '' }}">
                     <td><input type="password" name="password" id=""></td>
                 </tr>
                 <tr>
                     <td>
-                        <button type="submit">Create</button>
+                        <button type="submit">Simpan</button>
                     </td>
                 </tr>
             </table>
